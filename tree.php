@@ -3,9 +3,9 @@ require("tree.php");
 
 // Gets data from URL parameters.
 $treeID = $_GET['treeID']
-$name = $_GET['type'];
-$address = $_GET['height'];
-$type = $_GET['difficulty'];
+$type = $_GET['type'];
+$height = $_GET['height'];
+$diff = $_GET['difficulty'];
 $lat = $_GET['lat'];
 $lng = $_GET['lng'];
 
@@ -23,20 +23,7 @@ if (!$db_selected) {
 }
 
 // Inserts new row with place data.
-$query = sprintf("INSERT INTO markers " .
-         " (treeID, type, height, difficulty, lat, lng) " .
-         " VALUES (NULL, '%s', '%s', '%s', '%s', '%s');",
-         mysql_real_escape_string($treeID),
-         mysql_real_escape_string($type),
-         mysql_real_escape_string($height),
-         mysql_real_escape_string($difficulty),
-         mysql_real_escape_string($lat),
-         mysql_real_escape_string($lng));
-
-$result = mysql_query($query);
-
-if (!$result) {
-  die('Invalid query: ' . mysql_error());
-}
+$sql = "INSERT INTO Trees (treeID, type, height, difficulty, lat, lng)
+VALUES ($treeID, $type, $height, $diff, $lat, $lng)";
 
 ?>
