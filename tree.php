@@ -2,7 +2,7 @@
 require("tree.php");
 
 // Gets data from URL parameters.
-$treeID = $_GET['treeID']
+$treeID = $_GET['treeID'];
 $type = $_GET['type'];
 $height = $_GET['height'];
 $diff = $_GET['difficulty'];
@@ -24,6 +24,13 @@ if (!$db_selected) {
 
 // Inserts new row with place data.
 $sql = "INSERT INTO Trees (treeID, type, height, difficulty, lat, lng)
-VALUES ($treeID, $type, $height, $diff, $lat, $lng)";
+VALUES ('1234', 'red', '4', '1', '001.111'. '002.2222')"; //($treeID, $type, $height, $diff, $lat, $lng)";
 
+
+if ($connection->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+//error stuff doesn't work rn
 ?>
