@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="author" content="Emily, Zoe, Eliana">
+    <meta name="description" content="An app that lets you locate, input, and rate trees based on their climbing ability">
+
+    <title>Timbr | meet local trees in your area!</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+
+  <body>
+    <h1>Timbr</h1>
+    <p>climb trees and stuff</p>
+    <h2>Enter the information below to tag a tree!</h2>
+
+    <button onclick="showForm()" id="inputbutton"><h3>Input a Tree</h3></button><br>
+    <br>
+    <form id="form">
+      Username:<br>
+      <input type="text" name="username"><br><br>
+      
+      Have you used this site before?<br>
+      <input type="radio" name="returning" value="yes"> Yes<br>
+      <input type="radio" name="returning" value="no"> No<br><br>
+
+      Enter the type of tree:<br>
+      <input type="text" name="type"><br><br>
+      
+      Enter the estimated height of the tree in feet:<br>
+      <input type="text" name="height"><br><br>
+
+      Enter the difficulty of the tree (/5):<br>
+      <input type="text" name="difficulty"><br><br>
+
+      <input type="submit" value="Submit">
+
+    </form>
+  </body>
+
+  <script>
+function myFunction() {
+    var x = document.getElementById("frm1");
+    var text = "";
+    var i;
+    for (i = 0; i < x.length ;i++) {
+        text += x.elements[i].value + "<br>";
+    }
+    document.getElementById("demo").innerHTML = text;
+}
+
+function showForm() { 
+    var inputForm = document.getElementById('form');
+    var displaySetting = inputForm.style.display;
+    var inputButton = document.getElementById('inputbutton');
+							   
+    if (displaySetting === 'none') { 
+      inputForm.style.display = 'block';
+      inputButton.innerHTML = '<h3>Do Not Input a Tree</h3>';
+    }
+    else { 
+      inputForm.style.display = 'none';
+      inputButton.innerHTML = '<h3>Input a Tree</h3>';
+    }
+  }  
+</script>
+
+</html>
