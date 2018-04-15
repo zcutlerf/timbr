@@ -2,7 +2,7 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>From Info Windows to a Database: Saving User-Added Form Data</title>
+    <title>Timbr test</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -81,7 +81,7 @@
         var difficulty = document.getElementById('difficulty').value;
         var latlng = marker.getPosition();
         var treeID = latlng.lat() + latlng.lng();
-        var url = 'phpsqlinfo_addrow.php?treeID=' + treeID + '&type=' + type +
+        var url = 'tree.php?treeID=' + treeID + '&type=' + type +
                   '&height=' + height + '&difficulty=' + difficulty +
                   '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
 
