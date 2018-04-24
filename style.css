@@ -1,13 +1,76 @@
 h1 {
-  color: blue;
-  background-color: yellow;
-  border: 1px solid black;
+  font-size: 80pt;
+  margin: auto;
+  width: 50%;
+  color: #279C43;
+  padding-top: 150px;
+  padding-bottom: 25px;
+  text-align: center;
 }
 
 p {
-  color: green;
+  color: #59B244;
 }
 
 #form {
-  display: none;
+  margin: auto;
+  width: 50%;
+  border-radius: 25px;
+  background: #59B244;
+  padding: 25px;
+  width: 700px;
+  color: #653D23;
 }
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+
+input[type=radio], select {
+    margin: 8px 0;
+}
+
+input[type=submit], select {
+    padding: 12px 20px;
+    margin: 8px 0;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+
+body {
+     background-color: #AEDDF7;
+}
+
+.button {
+    display: block;
+    margin: auto;
+    width: 750px;
+    border-radius: 25px;
+    background-color: #279C43;
+    color: #653D23;
+    padding: 25px;
+    text-align: center;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+/* egg-shell: #edeae5
+   light green: #b4c787
+   dark green: #809135
+   dark brown: #453236
+   light brown: #976b60
+*/
+
+/* light green: #59B244
+   dark green: #279C43
+   brown: #653D23
+   blue: #AEDDF7
+*/
