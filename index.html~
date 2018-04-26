@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <meta name="author" content="Emily, Zoe, Eliana">
+    <meta name="description" content="An app that lets you locate, input, and rate trees based on their climbing ability">
+
+    <title>Timbr | meet local trees in your area!</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+
+  <body>
+    <h1>Timbr</h1>
+    <!-- <p>climb trees and stuff</p>
+    <h2>Enter the information below to tag a tree!</h2>
+-->
+    <button onclick="showForm()" id="button" class="button">Input a Tree</button><br>
+    <br>
+
+    <form id="form" style="display: none;">
+      Username:<br>
+      <input type="text" name="username" id="username"><br><br>
+      
+      Have you used this site before?<br>
+      <input type="radio" name="returning" id="returning" value="true"> Yes<br>
+      <input type="radio" name="returning" id="returning"  value="false"> No<br><br>
+
+      Enter the type of tree:<br>
+      <input type="text" name="type" id="type"><br><br>
+      
+      Enter the estimated height of the tree in feet:<br>
+      <input type="text" name="height" id="height"><br><br>
+
+      Rate the difficulty of the climb:<br>
+      <input type="radio" name="difficulty" id="difficulty" value="5">  5 (most difficult)<br>
+      <input type="radio" name="difficulty" id="difficulty" value="4">  4<br>
+      <input type="radio" name="difficulty" id="difficulty" value="3">  3<br>
+      <input type="radio" name="difficulty" id="difficulty" value="2">  2<br>
+      <input type="radio" name="difficulty" id="difficulty" value="1">  1 (least difficult)<br><br>
+
+      <input type="submit" value="Submit" onclick="getInfo()">
+
+    </form>
+  </body>
+
+  <script>
+function showForm() { 
+    var x = document.getElementById("form");
+    var button = document.getElementById("button");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        button.innerHTML = "Collapse";
+    } else {
+        x.style.display = "none";
+        button.innerHTML = "Input a Tree";
+    }   
+}
+
+function getInfo() {
+    var username = document.getElementById("username").value; 
+    var returning = document.querySelector('input[id="returning"]:checked').value;
+    var type = document.getElementById("type").value;
+    var height = document.getElementById("height").value;
+    var difficulty = document.querySelector('input[id="difficulty"]:checked').value;
+
+    alert("username: " + username + "\nreturning: " + returning + "\ntype: " + type + "\nheight: " + height + "\ndifficulty: " + difficulty);
+}
+
+</script>
+
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="author" content="Emily, Zoe, Eliana">
+    <meta name="description" content="An app that lets you locate, input, and Rate trees based on their climbing ability">
+
+    <title>Timbr | meet local trees in your area!</title>
+
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="style_index.css">
+  </head>
+
+
+  <body>
+    <h1>Timbr</h1>
+    <button onclick="showForm()" id="button" class="button">Input a Tree</button><br><br>
+
+    <div id="map" height="460px" width="100%"></div>
+
+    <form id="form" style="display: none;">
+      Username:<br>
+      <input type="text" name="username" id="username"><br><br>
+
+      Have you used this site before?<br>
+      <input type="radio" name="returning" id="returning" value="true"> Yes<br>
+      <input type="radio" name="returning" id="returning"  value="false"> No<br><br>
+
+      Enter the type of tree:<br>
+      <input type="text" name="type" id="type"><br><br>
+
+      Enter the estimated height of the tree in feet:<br>
+      <input type="text" name="height" id="height"><br><br>
+
+      Rate the difficulty of the climb:<br>
+      <input type="radio" name="difficulty" id="difficulty" value="5">  5 (most difficult)<br>
+      <input type="radio" name="difficulty" id="difficulty" value="4">  4<br>
+      <input type="radio" name="difficulty" id="difficulty" value="3">  3<br>
+      <input type="radio" name="difficulty" id="difficulty" value="2">  2<br>
+      <input type="radio" name="difficulty" id="difficulty" value="1">  1 (least difficult)<br><br>
+
+      <input type="submit" value="Submit" onclick="saveData()">
+
+    </form>
+
+
+  <script>
+function showForm() {
+    var x = document.getElementById("form");
+    var button = document.getElementById("button");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        button.innerHTML = "Collapse";
+    } else {
+        x.style.display = "none";
+        button.innerHTML = "Input a Tree";
+    }
+}
+
+
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+
+      function initMap() {
+        var oberlin = {lat: 41.293067, lng: -82.218726};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: oberlin,
+          zoom: 15
+        });
+        map.setMapTypeId('hybrid');
+
+        infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+      }
+
+      function saveData() {
+        var type = document.getElementById('type').value;
+        var height = document.getElementById('height').value;
+        var difficulty = document.getElementById('difficulty').value;
+        var latlng = marker.getPosition();
+        var treeID = latlng.lat() + latlng.lng();
+        var url = 'tree.php?treeID=' + treeID + '&type=' + type +
+                  '&height=' + height + '&difficulty=' + difficulty +
+                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng();google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+      }
+
+      function saveData() {
+        var type = document.getElementById('type').value;
+        var height = document.getElementById('height').value;
+        var difficulty = document.getElementById('difficulty').value;
+        var latlng = marker.getPosition();
+        var treeID = latlng.lat() + latlng.lng();
+        var url = 'tree.php?treeID=' + treeID + '&type=' + type +
+                  '&height=' + height + '&difficulty=' + difficulty +
+                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+
+        downloadUrl(url, function(data, responseCode) {
+
+          if (responseCode == 200 && data.length <= 1) {
+            infowindow.close();
+            messagewindow.open(map, marker);
+          }
+        });
+      }
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request.responseText, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing () {
+      }
+
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrO3nDWPpR3MJ36pNw0dTdmvWEsWKjTEk&callback=initMap">
+    </script>
+  </body>
+</html>
+
