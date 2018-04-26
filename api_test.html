@@ -79,8 +79,7 @@
         var height = document.getElementById('height').value;
         var difficulty = document.getElementById('difficulty').value;
         var latlng = marker.getPosition();
-        var treeID = latlng.lat() + latlng.lng();
-        var url = 'tree.php?treeID=' + treeID + '&type=' + type +
+        var url = 'tree.php?type=' + type +
                   '&height=' + height + '&difficulty=' + difficulty +
                   '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
 

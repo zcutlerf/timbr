@@ -10,15 +10,16 @@ $lng = $_GET['lng'];
 
 // Opens a connection to a MySQL server.
 
-$connection=mysqli_connect("localhost", 'id5405142_tree', 'timbrcity', 'id5405142_treeinfo');
+$connection=mysqli_connect("127.0.0.1:3306", "root", "timbrcity", "mydb");
 if (!$connection){
   echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
+  exit;
   }
   else {
     echo "Connected!";
   }
-echo "Success: A proper connection to MySQL was made! The id5405142_treeinfo database is great." . PHP_EOL;
-echo "Host information: " . mysqli_get_host_info($connection) . PHP_EOL;
+//echo "Success: A proper connection to MySQL was made! The id5405142_treeinfo database is great." . PHP_EOL;
+//echo "Host information: " . mysqli_get_host_info($connection) . PHP_EOL;
 
 // Sets the active MySQL database.
 $db_selected = mysqli_select_db($connection, id5405142_treeinfo);
