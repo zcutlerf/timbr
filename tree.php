@@ -1,4 +1,6 @@
 <?php
+
+header('Content-Type: charset=utf-8');
 // Gets data from URL parameters.
 $type = $_GET['type'];
 $height = $_GET['height'];
@@ -8,7 +10,7 @@ $lng = $_GET['lng'];
 
 // Opens a connection to a MySQL server.
 
-$connection=mysqli_connect("127.0.0.1:3306", "root", "timbrcity", "mydb");
+$connection=mysqli_connect("localhost:3306", "root", "timbrcity", "mydb");
 if (!$connection){
   echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
   exit;
