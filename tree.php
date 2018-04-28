@@ -1,6 +1,5 @@
 <?php
 
-header('Content-Type: charset=utf-8');
 // Gets data from URL parameters.
 $type = $_GET['type'];
 $height = $_GET['height'];
