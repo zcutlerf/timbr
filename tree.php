@@ -6,7 +6,6 @@ $diff = $_GET['difficulty'];
 $lat = $_GET['lat'];
 $lng = $_GET['lng'];
 
-alert($type);
 // Opens a connection to a MySQL server.
 
 $connection=mysqli_connect("127.0.0.1:3306", "root", "timbrcity", "mydb");
@@ -33,7 +32,7 @@ VALUES (DEFAULT, '41', '42', 'dec', 'five foot', '5')";
 // "(DEFAULT,'$lat', '$lat', '$type', '$height', '$diff')";
 
 
-if(mysqli_query($connection, $sql
+if(mysqli_query($connection, $sql)){
     echo "Records inserted successfully.";
 } else{
     echo "ERROR: Could not execute $sql. \n" . mysqli_error($connection);

@@ -105,6 +105,7 @@
           if (request.readyState == 4) {
             request.onreadystatechange = doNothing;
             callback(request.responseText, request.status);
+            alert(request.responseText);
             //responseText IS the php script, status is the response status up there (200)
           }
         };
