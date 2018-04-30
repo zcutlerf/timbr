@@ -28,9 +28,7 @@ if (!$db_selected) {
 
 // Inserts new row with place data.
 $sql = "INSERT INTO Tree (treeID, latitude, longitude, type, height, difficulty)
-VALUES (DEFAULT, '41', '42', 'dec', 'five foot', '5')";
-
-// "(DEFAULT,'$lat', '$lat', '$type', '$height', '$diff')";
+VALUES (DEFAULT,'$lat', '$lat', '$type', '$height', '$diff')";
 
 
 if(mysqli_query($connection, $sql)){
