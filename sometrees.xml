@@ -1,0 +1,6 @@
+<?xml version='1.0' ?>
+<markers>
+  <marker treeID="1" latitude="42" longitude="42" type="Evergreen" height="Tall" difficulty="Intermediate" />
+  <marker treeID="2" latitude="42" longitude="30" type="Evergreen" height="Tall" difficulty="Intermediate" />
+  <marker treeID="3" latitude="41" longitude="-82" type="Deciduous" height="Medium" difficulty="Beginner" />
+</markers>
