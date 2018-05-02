@@ -7,6 +7,8 @@ $difficulty = $_GET['difficulty'];
 $latitude = $_GET['latitude'];
 $longitude = $_GET['longitude'];
 
+echo "type is $type.";
+
 // Opens a connection to a MySQL server.
 
 $connection=mysqli_connect("localhost:3306", "root", "timbrcity", "mydb");
@@ -28,7 +30,11 @@ if (!$db_selected) {
 
 // Inserts new row with place data.
 $sql = "INSERT INTO Tree (treeID, latitude, longitude, type, height, difficulty)
+<<<<<<< HEAD
 VALUES (DEFAULT,'$latitude', '$longitude', '$type', '$height', '$difficulty')";
+=======
+VALUES (DEFAULT,'$lat', '$lat', '$type', '$height', '$difficulty')";
+>>>>>>> 945c4e72320864c0ce74abf326a3f6668f5d089b
 //(DEFAULT,'43', '42', 'dec', 'ten feet', '5')";
 
 
