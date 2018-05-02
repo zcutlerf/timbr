@@ -4,8 +4,8 @@
 $type = $_GET['type'];
 $height = $_GET['height'];
 $difficulty = $_GET['difficulty'];
-$lat = $_GET['lat'];
-$lng = $_GET['lng'];
+$latitude = $_GET['latitude'];
+$longitude = $_GET['longitude'];
 
 // Opens a connection to a MySQL server.
 
@@ -28,8 +28,8 @@ if (!$db_selected) {
 
 // Inserts new row with place data.
 $sql = "INSERT INTO Tree (treeID, latitude, longitude, type, height, difficulty)
-VALUES (DEFAULT,'$lat', '$lat', '$type', '$height', '$difficulty')";
-//(DEFAULT,'43', '42', 'dec', 'ten feet', '5')"; 
+VALUES (DEFAULT,'$latitude', '$longitude', '$type', '$height', '$difficulty')";
+//(DEFAULT,'43', '42', 'dec', 'ten feet', '5')";
 
 
 if(mysqli_query($connection, $sql)){

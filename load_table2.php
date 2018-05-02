@@ -44,8 +44,8 @@ while ($row = @mysqli_fetch_assoc($result)){
   // Add to XML document node
   echo '<marker ';
   echo 'treeID="' . $row['treeID'] . '" ';
-  echo 'lat="' . $row['lat'] . '" ';
-  echo 'lng="' . $row['lng'] . '" ';
+  echo 'latitude="' . $row['latitude'] . '" ';
+  echo 'longitude="' . $row['longitude'] . '" ';
   echo 'type="' . parseToXML($row['type']) . '" ';
   echo 'height="' . parseToXML($row['height']) . '" ';
   echo 'difficulty="' . parseToXML($row['difficulty']) . '" ';

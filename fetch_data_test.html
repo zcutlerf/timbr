@@ -23,11 +23,11 @@
 
     <script>
       var customLabel = {
-        restaurant: {
-          label: 'R'
+        Evergreen: {
+          label: 'E'
         },
-        bar: {
-          label: 'B'
+        Deciduous: {
+          label: 'D'
         }
       };
 
@@ -40,26 +40,26 @@
         var infoWindow = new google.maps.InfoWindow;
 
           // Change this depending on the name of your PHP or XML file
-          downloadUrl('https://storage.googleapis.com/mapsdevsite/json/mapmarkers2.xml', function(data) {
+          downloadUrl('/sometrees.xml', function(data) {
             var xml = data.responseXML;
-            var markers = xml.documentElement.getElementsByTagName('marker');
-            Array.prototype.forEach.call(markers, function(markerElem) {
-              var id = markerElem.getAttribute('id');
-              var name = markerElem.getAttribute('name');
-              var address = markerElem.getAttribute('address');
-              var type = markerElem.getAttribute('type');
+            var Tree = xml.documentElement.getElementsByTagName('Tree');
+            Array.prototype.forEach.call(Tree, function(TreeElem) {
+              var treeID = TreeElem.getAttribute('treeID');
               var point = new google.maps.LatLng(
-                  parseFloat(markerElem.getAttribute('lat')),
-                  parseFloat(markerElem.getAttribute('lng')));
+                  parseFloat(TreeElem.getAttribute('latitude')),
+                  parseFloat(TreeElem.getAttribute('longitude')));
+              var type = TreeElem.getAttribute('type');
+              var height = TreeElem.getAttribute('height');
+              var difficulty = TreeElem.getAttribute('difficulty');
 
               var infowincontent = document.createElement('div');
               var strong = document.createElement('strong');
-              strong.textContent = name
+              strong.textContent = treeID
               infowincontent.appendChild(strong);
               infowincontent.appendChild(document.createElement('br'));
 
               var text = document.createElement('text');
-              text.textContent = address
+              text.textContent = type
               infowincontent.appendChild(text);
               var icon = customLabel[type] || {};
               var marker = new google.maps.Marker({
@@ -96,7 +96,7 @@
       function doNothing() {}
     </script>
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrO3nDWPpR3MJ36pNw0dTdmvWEsWKjTEk&callback=initMap">
     </script>
   </body>
 </html>
