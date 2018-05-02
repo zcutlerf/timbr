@@ -86,9 +86,9 @@
 
         //window.location.assign(url);
 
+        //data is responseText
 
         downloadUrl(url, function(data, responseCode) {
-
           if ( responseCode == 200 ) { //&& data.length <= 1
             infowindow.close();
             messagewindow.open(map, marker);
@@ -105,7 +105,6 @@
           if (request.readyState == 4) {
             request.onreadystatechange = doNothing;
             callback(request.responseText, request.status);
-            alert(request.responseText);
             //responseText IS the php script, status is the response status up there (200)
           }
         };
