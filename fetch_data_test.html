@@ -40,17 +40,17 @@
         var infoWindow = new google.maps.InfoWindow;
 
           // Change this depending on the name of your PHP or XML file
-          downloadUrl('sometrees.xml', function(data) {
+          downloadUrl('load_table2.php', function(data) {
             var xml = data.responseXML;
-            var Tree = xml.documentElement.getElementsByTagName('Tree');
-            Array.prototype.forEach.call(Tree, function(TreeElem) {
-              var treeID = TreeElem.getAttribute('treeID');
+            var markers = xml.documentElement.getElementsByTagName('marker');
+            Array.prototype.forEach.call(markers, function(markerElem) {
+              var treeID = markerElem.getAttribute('treeID');
               var point = new google.maps.LatLng(
-                  parseFloat(TreeElem.getAttribute('latitude')),
-                  parseFloat(TreeElem.getAttribute('longitude')));
-              var type = TreeElem.getAttribute('type');
-              var height = TreeElem.getAttribute('height');
-              var difficulty = TreeElem.getAttribute('difficulty');
+                  parseFloat(markerElem.getAttribute('latitude')),
+                  parseFloat(markerElem.getAttribute('longitude')));
+              var type = markerElem.getAttribute('type');
+              var height = markerElem.getAttribute('height');
+              var difficulty = markerElem.getAttribute('difficulty');
 
               var infowincontent = document.createElement('div');
               var strong = document.createElement('strong');
