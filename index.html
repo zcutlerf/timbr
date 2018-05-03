@@ -1,76 +1,319 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
   <head>
-    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Timbr test</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin:0;
+        padding:0;
+      }
 
-    <meta name="author" content="Emily, Zoe, Eliana">
-    <meta name="description" content="An app that lets you locate, input, and rate trees based on their climbing ability">
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 1%;
+        text-overflow: ellipsis;
+      }
+      
+      #row {
+        background-color: #195635;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+        width: 100%;
+        border-bottom: 10px;
+        border-bottom-color: white;
+      }
+      
+      #row th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4CAF50;
+        color: white;
+      }
+      
+      #row td {
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        color: white;
+      }
 
-    <title>Timbr | meet local trees in your area!</title>
-
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="style.css">
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+      
+      #intype {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+      }
+      
+      #inheight {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+      }
+      
+      #indifficulty {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+      }
+      
+      #form {
+        display: none;
+      }
+      
+    </style>
   </head>
-
-
   <body>
-    <h1>Timbr</h1>
-    <!-- <p>climb trees and stuff</p>
-    <h2>Enter the information below to tag a tree!</h2>
--->
-    <button onclick="showForm()" id="button" class="button">Input a Tree</button><br>
-    <br>
+    <table id="row">
+        <tr>
+            <th rowspan="2">TIMBR LOGO</th>
+            <td colspan="4">Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag.</td>
+        </tr>
+        <tr>
+            <td>Location:     <input id="pac-input" class="controls" type="text" placeholder="Search Box"></td>
+            <td>Type:     <select id='intype'> +
+                <option value='Any' SELECTED>Any</option>
+                <option value='Deciduous'>Deciduous</option>
+                <option value='Evergreen'>Evergreen</option>
+                </select>
+            </td>
+            <td>Height:     <select id='inheight'> +
+                <option value='Any' SELECTED>Any</option>
+                <option value='Short'>Short</option>
+                <option value='Medium'>Medium</option>
+                <option value='Tall'>Tall</option>
+                </select>
+            </td>
+            <td>Climbing difficulty:     <select id='indifficulty'> +
+                <option value='Any' SELECTED>Any</option>
+                <option value='Easy'>Easy</option>
+                <option value='Intermediate'>Intermediate</option>
+                <option value='Difficult'>Difficult</option>
+                </select>
+            </td>
+        </tr>
+      </table>
+        
+    <div id="map" height="100%" width="100%"></div>
+    
+    <div id="form">
+      <table>
+      <tr><th>Enter a New Tree!</th></tr>
+      <tr><td>Type:</td> <td><select id='type'> +
+                 <option value='Deciduous' SELECTED>Deciduous</option>
+                 <option value='Evergreen'>Evergreen</option>
+                 </select> </td></tr>
+      <tr><td>Height:</td> <td><select id='height'> +
+                 <option value='Short' SELECTED>Short</option>
+                 <option value='Medium'>Medium</option>
+                 <option value='Tall'>Tall</option>
+                 </select> </td></tr>
+      <tr><td>Climbing difficulty:</td> <td><select id='difficulty'> +
+                 <option value='Easy' SELECTED>Easy</option>
+                 <option value='Intermediate'>Intermediate</option>
+                 <option value='Difficult'>Difficult</option>
+                 </select> </td></tr>
+      <tr><td>
+      </td><td>
+      <input type='button' value='Save' onclick='saveData()'/>
+      </td>
+      </tr>
+      </table>
+    </div>
+    <script>
+      /*var map;
+      var marker;
+      var infowindow;
+      var messagewindow;*/
 
-    <form id="form" style="display: none;">
-      Username:<br>
-      <input type="text" name="username" id="username"><br><br>
+      function initMap() {
+        initAutocomplete();
+        
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">About Us</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Emily, Zoe, and Eliana are Oberlin students who made this!</p>'+
+            '</div>'+
+            '</div>';
+
+        var initinfowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        
+        var initmarker = new google.maps.Marker({
+          position: {lat: 41.293067, lng: -82.218726},
+          map: map,
+          icon: 'home.png',
+          title: 'About Us'
+        });
+        
+        initmarker.addListener('click', function() {
+          initinfowindow.open(map, initmarker);
+        });
+        
+
+        
+       /* var infowincontent = document.createElement('div');
+        infowincontent.appendChild("Hello");
+        
+        marker = new google.maps.Marker({
+            position: {lat: 41.293067, lng: -82.218726},
+            map: map,
+            title: 'Hello World!',
+            
+        });
+        
+        marker.setMap(map);
+*/
+
+        
+        infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            icon: "tree.png"
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+            document.getElementById('form').style.display = "block";
+            infowindow.open(map, marker);
+          });
+        });
+      }
+
+      function saveData() {
+        var type = document.getElementById('type').value;
+        var height = document.getElementById('height').value;
+        var difficulty = document.getElementById('difficulty').value;
+        var latlng = marker.getPosition();
+        var url = 'tree.php?type=' + type +
+                  '&height=' + height + '&difficulty=' + difficulty +
+                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+
+        downloadUrl(url, function(data, responseCode) {
+
+          if (responseCode == 200 && data.length <= 1) {
+            infowindow.close();
+            messagewindow.open(map, marker);
+          }
+        });
+      }
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request.responseText, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing () {
+      }
       
-      Have you used this site before?<br>
-      <input type="radio" name="returning" id="returning" value="true"> Yes<br>
-      <input type="radio" name="returning" id="returning"  value="false"> No<br><br>
+      function initAutocomplete() {
+        var oberlin = {lat: 41.293067, lng: -82.218726};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: oberlin,
+          zoom: 15,
+          mapTypeControl: false
+        });
+        map.setMapTypeId('hybrid');
+        
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var inrow = document.getElementById('row');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(inrow);
 
-      Enter the type of tree:<br>
-      <input type="text" name="type" id="type"><br><br>
-      
-      Enter the estimated height of the tree in feet:<br>
-      <input type="text" name="height" id="height"><br><br>
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
 
-      Rate the difficulty of the climb:<br>
-      <input type="radio" name="difficulty" id="difficulty" value="5">  5 (most difficult)<br>
-      <input type="radio" name="difficulty" id="difficulty" value="4">  4<br>
-      <input type="radio" name="difficulty" id="difficulty" value="3">  3<br>
-      <input type="radio" name="difficulty" id="difficulty" value="2">  2<br>
-      <input type="radio" name="difficulty" id="difficulty" value="1">  1 (least difficult)<br><br>
+        //var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
 
-      <input type="submit" value="Submit" onclick="getInfo()">
+          if (places.length == 0) {
+            return;
+          }
 
-    </form>
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrO3nDWPpR3MJ36pNw0dTdmvWEsWKjTEk&libraries=places&callback=initMap">
+    </script>
   </body>
-
-  <script>
-function showForm() { 
-    var x = document.getElementById("form");
-    var button = document.getElementById("button");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        button.innerHTML = "Collapse";
-    } else {
-        x.style.display = "none";
-        button.innerHTML = "Input a Tree";
-    }   
-}
-
-function getInfo() {
-    var username = document.getElementById("username").value; 
-    var returning = document.querySelector('input[id="returning"]:checked').value;
-    var type = document.getElementById("type").value;
-    var height = document.getElementById("height").value;
-    var difficulty = document.querySelector('input[id="difficulty"]:checked').value;
-
-    alert("username: " + username + "\nreturning: " + returning + "\ntype: " + type + "\nheight: " + height + "\ndifficulty: " + difficulty);
-}
-
-</script>
-
 </html>
