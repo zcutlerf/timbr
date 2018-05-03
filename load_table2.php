@@ -1,4 +1,6 @@
 <?php
+require("creds.php");
+
 
 function parseToXML($htmlStr)
 {
@@ -11,7 +13,7 @@ return $xmlStr;
 }
 
 // Opens a connection to a MySQL server
-$connection=mysqli_connect("localhost:3306", "root", "timbrcity", "mydb");
+$connection=mysqli_connect("localhost", $username, $password, $database);
 if (!$connection){
   echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
   exit;
@@ -21,7 +23,7 @@ if (!$connection){
   }
 
 // Set the active MySQL database
-$db_selected = mysqli_select_db($connection, "mydb");
+$db_selected = mysqli_select_db($connection, $database);
 if (!$db_selected) {
   die ('Can\'t use db : ' . mysql_error());
 }

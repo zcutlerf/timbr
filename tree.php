@@ -25,7 +25,7 @@ if (!$connection){
 echo "Host information: " . mysqli_get_host_info($connection) . PHP_EOL;
 
 // Sets the active MySQL database.
-$db_selected = mysqli_select_db($connection, "id5405142_mydb");
+$db_selected = mysqli_select_db($connection, $database);
 if (!$db_selected) {
   die ('Can\'t use db : ' . mysql_error());
 }
