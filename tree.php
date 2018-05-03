@@ -4,14 +4,14 @@
 $type = $_GET['type'];
 $height = $_GET['height'];
 $difficulty = $_GET['difficulty'];
-$latitude = $_GET['latitude'];
-$longitude = $_GET['longitude'];
+$latitude = $_GET['lat'];
+$longitude = $_GET['lng'];
 
-echo "type is $type.";
+//echo "type is $type.";
 
 // Opens a connection to a MySQL server.
 
-$connection=mysqli_connect("localhost:3306", "root", "timbrcity", "mydb");
+$connection=mysqli_connect("localhost", "id5405142_treestuff", "timbrcity", "id5405142_mydb");
 if (!$connection){
   echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
   exit;
