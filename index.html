@@ -21,7 +21,7 @@
         font-size: 13px;
         font-weight: 300;
       }
-      
+
       #pac-input {
         background-color: #fff;
         font-family: Roboto;
@@ -30,7 +30,7 @@
         padding: 1%;
         text-overflow: ellipsis;
       }
-      
+
       #row {
         background-color: #195635;
         font-family: Roboto;
@@ -41,7 +41,7 @@
         border-bottom: 10px;
         border-bottom-color: white;
       }
-      
+
       #row th {
         padding-top: 12px;
         padding-bottom: 12px;
@@ -49,7 +49,7 @@
         background-color: #4CAF50;
         color: white;
       }
-      
+
       #row td {
         /*border: 1px solid #ddd;*/
         padding: 8px;
@@ -66,7 +66,7 @@
       #target {
         width: 345px;
       }
-      
+
       #intype {
         background-color: #fff;
         font-family: Roboto;
@@ -74,7 +74,7 @@
         font-weight: 300;
         padding: 2%;
       }
-      
+
       #inheight {
         background-color: #fff;
         font-family: Roboto;
@@ -82,7 +82,7 @@
         font-weight: 300;
         padding: 2%;
       }
-      
+
       #indifficulty {
         background-color: #fff;
         font-family: Roboto;
@@ -90,11 +90,11 @@
         font-weight: 300;
         padding: 2%;
       }
-      
+
       #form {
         display: none;
       }
-      
+
     </style>
   </head>
   <body>
@@ -127,9 +127,9 @@
             </td>
         </tr>
       </table>
-        
+
     <div id="map" height="100%" width="100%"></div>
-    
+
     <div id="form">
       <table>
       <tr><th>Enter a New Tree!</th></tr>
@@ -162,7 +162,7 @@
 
       function initMap() {
         initAutocomplete();
-        
+
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
@@ -175,34 +175,34 @@
         var initinfowindow = new google.maps.InfoWindow({
           content: contentString
         });
-        
+
         var initmarker = new google.maps.Marker({
           position: {lat: 41.293067, lng: -82.218726},
           map: map,
           icon: 'home.png',
           title: 'About Us'
         });
-        
+
         initmarker.addListener('click', function() {
           initinfowindow.open(map, initmarker);
         });
-        
 
-        
+
+
        /* var infowincontent = document.createElement('div');
         infowincontent.appendChild("Hello");
-        
+
         marker = new google.maps.Marker({
             position: {lat: 41.293067, lng: -82.218726},
             map: map,
             title: 'Hello World!',
-            
+
         });
-        
+
         marker.setMap(map);
 */
 
-        
+
         infowindow = new google.maps.InfoWindow({
           content: document.getElementById('form')
         });
@@ -236,7 +236,7 @@
 
         downloadUrl(url, function(data, responseCode) {
 
-          if (responseCode == 200 && data.length <= 1) {
+          if (responseCode == 200 /*&& data.length <= 1*/) {
             infowindow.close();
             messagewindow.open(map, marker);
           }
@@ -261,7 +261,7 @@
 
       function doNothing () {
       }
-      
+
       function initAutocomplete() {
         var oberlin = {lat: 41.293067, lng: -82.218726};
         map = new google.maps.Map(document.getElementById('map'), {
@@ -270,7 +270,7 @@
           mapTypeControl: false
         });
         map.setMapTypeId('hybrid');
-        
+
         // Create the search box and link it to the UI element.
         var input = document.getElementById('pac-input');
         var inrow = document.getElementById('row');

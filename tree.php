@@ -1,5 +1,7 @@
 <?php
 
+require("creds.php");
+
 // Gets data from URL parameters.
 $type = $_GET['type'];
 $height = $_GET['height'];
@@ -11,7 +13,7 @@ $longitude = $_GET['lng'];
 
 // Opens a connection to a MySQL server.
 
-$connection=mysqli_connect("localhost", "id5405142_treestuff", "timbrcity", "id5405142_mydb");
+$connection=mysqli_connect("localhost", $username, $password, $database);
 if (!$connection){
   echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
   exit;
@@ -23,7 +25,7 @@ if (!$connection){
 echo "Host information: " . mysqli_get_host_info($connection) . PHP_EOL;
 
 // Sets the active MySQL database.
-$db_selected = mysqli_select_db($connection, "mydb");
+$db_selected = mysqli_select_db($connection, "id5405142_mydb");
 if (!$db_selected) {
   die ('Can\'t use db : ' . mysql_error());
 }
