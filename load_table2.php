@@ -29,6 +29,7 @@ if (!$db_selected) {
 }
 
 // Select all the rows in the markers table
+//Eliana should only modify this paragraph
 $query = "SELECT * FROM Tree WHERE 1";
 $result = mysqli_query($connection, $query);
 if (!$result) {
