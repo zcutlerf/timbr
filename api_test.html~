@@ -68,6 +68,7 @@
             map: map
           });
 
+
           google.maps.event.addListener(marker, 'click', function() {
             infowindow.open(map, marker);
           });
@@ -79,16 +80,14 @@
         var height = document.getElementById('height').value;
         var difficulty = document.getElementById('difficulty').value;
         var latlng = marker.getPosition();
-        var url = 'tree.php?type=' + type +
+        var treeID = latlng.lat() + latlng.lng();
+        var url = 'tree.php?treeID=' + treeID + '&type=' + type +
                   '&height=' + height + '&difficulty=' + difficulty +
-                  '&latitude=' + latlng.lat() + '&longitude=' + latlng.lng(); //might need an exact path?
-
-        //window.location.assign(url);
-
-        //data is responseText
+                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
 
         downloadUrl(url, function(data, responseCode) {
-          if ( responseCode == 200 ) { //&& data.length <= 1
+
+          if (responseCode == 200 && data.length <= 1) {
             infowindow.close();
             messagewindow.open(map, marker);
           }
@@ -98,17 +97,16 @@
       function downloadUrl(url, callback) {
         var request = window.ActiveXObject ?
             new ActiveXObject('Microsoft.XMLHTTP') :
-            new XMLHttpRequest; //will always XMLHttpRequest bc ActiveXObjects are essentially useless
+            new XMLHttpRequest;
 
         request.onreadystatechange = function() {
           if (request.readyState == 4) {
             request.onreadystatechange = doNothing;
             callback(request.responseText, request.status);
-            //responseText IS the php script, status is the response status up there (200)
           }
         };
 
-        request.open('GET', url, true); //"GET" retrieves data
+        request.open('GET', url, true);
         request.send(null);
       }
 

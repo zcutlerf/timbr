@@ -1,0 +1,43 @@
+<!DOCTYPE html >
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Timbr test</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 75%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 50px;
+        padding: 50;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" height="460px" width="100%"></div>
+    <div id="form">
+      <table>
+      <tr><th>Enter a New Tree!</th></tr>
+      <tr><td>Type:</td> <td><select id='type'> +
+                 <option value='Deciduous' SELECTED>Deciduous</option>
+                 <option value='Evergreen'>Evergreen</option>
+                 </select> </td></tr>
+      <tr><td>Height:</td> <td><select id='height'> +
+                 <option value='Short' SELECTED>Short</option>
+                 <option value='Medium'>Medium</option>
+                 <option value='Tall'>Tall</option>
+                 </select> </td></tr>
+      <tr><td>Climbing difficulty:</td> <td><select id='difficulty'> +
+                 <option value='Easy' SELECTED>Easy</option>
+                 <option value='Intermediate'>Intermediate</option>
+                 <option value='Difficult'>Difficult</option>
+                 </select> </td></tr>
+      <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+      </table>
+    </div>
+    <div id="message">Location saved</div>
+    </body>
