@@ -1,5 +1,4 @@
 <?php
-require("creds.php");
 
 
 function parseToXML($htmlStr)
@@ -12,14 +11,16 @@ $xmlStr=str_replace("&",'&amp;',$xmlStr);
 return $xmlStr;
 }
 
+require("creds.php");
+
 // Opens a connection to a MySQL server
 $connection=mysqli_connect("localhost", $username, $password, $database);
 if (!$connection){
-  echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
+  //echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
   exit;
   }
   else {
-    echo "Connected!\n";
+    //echo "Connected!\n";
   }
 
 // Set the active MySQL database
