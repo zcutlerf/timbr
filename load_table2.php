@@ -26,21 +26,23 @@ if (!$connection){
 // Set the active MySQL database
 $db_selected = mysqli_select_db($connection, $database);
 if (!$db_selected) {
-  die ('Can\'t use db : ' . mysql_error());
+  //echo 'Can\'t use db : ' . mysql_error();
+  exit;
 }
+//echo($db_selected);
 
 // Select all the rows in the markers table
 //Eliana should only modify this paragraph
 $query = "SELECT * FROM Tree WHERE 1";
 $result = mysqli_query($connection, $query);
 if (!$result) {
-  die('Invalid query: ' . mysql_error());
+  //echo 'Invalid query: ' . mysql_error();
+  exit;
 }
 
-//header("Content-type: text/xml");
+header("Content-type: text/xml");
 
 // Start XML file, echo parent node
-echo "<?xml version='1.0' ?>";
 echo '<markers>';
 $ind=0;
 // Iterate through the rows, printing XML nodes for each
