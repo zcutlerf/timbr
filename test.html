@@ -1,0 +1,177 @@
+<!DOCTYPE html >
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Timbr test</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 75%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 50px;
+        padding: 50;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map" height="460px" width="100%"></div>
+    <div id="form">
+      <table>
+      <tr><th>Enter a New Tree!</th></tr>
+      <tr><td>Type:</td> <td><select id='type'> +
+                 <option value='Deciduous' SELECTED>Deciduous</option>
+                 <option value='Evergreen'>Evergreen</option>
+                 </select> </td></tr>
+      <tr><td>Height:</td> <td><select id='height'> +
+                 <option value='Short' SELECTED>Short</option>
+                 <option value='Medium'>Medium</option>
+                 <option value='Tall'>Tall</option>
+                 </select> </td></tr>
+      <tr><td>Climbing difficulty:</td> <td><select id='difficulty'> +
+                 <option value='Easy' SELECTED>Easy</option>
+                 <option value='Intermediate'>Intermediate</option>
+                 <option value='Difficult'>Difficult</option>
+                 </select> </td></tr>
+      <tr><td></td><td><input type='button' value='Save' onclick='saveData()'/></td></tr>
+      </table>
+    </div>
+    <div id="message">Location saved</div>
+    <script>
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+
+      function initMap() {
+        var oberlin = {lat: 41.293067, lng: -82.218726};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: oberlin,
+          zoom: 15
+        });
+        map.setMapTypeId('hybrid');
+
+        infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+      }
+
+      function saveData() {
+        var type = document.getElementById('type').value;
+        var height = document.getElementById('height').value;
+        var difficulty = document.getElementById('difficulty').value;
+        var latlng = marker.getPosition();
+        var url = 'tree.php?type=' + type +
+                  '&height=' + height + '&difficulty=' + difficulty +
+                  '&latitude=' + latlng.lat() + '&longitude=' + latlng.lng(); //might need an exact path?
+
+        //window.location.assign(url);
+
+        //data is responseText
+
+        downloadUrl(url, function(data, responseCode) {
+          if ( responseCode == 200 ) { //&& data.length <= 1
+            infowindow.close();
+            messagewindow.open(map, marker);
+          }
+        });
+      }
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest; //will always XMLHttpRequest bc ActiveXObjects are essentially useless
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request.responseText, request.status);
+            //responseText IS the php script, status is the response status up there (200)
+          }
+        };
+
+        request.open('GET', url, true); //"GET" retrieves data
+        request.send(null);
+      }
+
+      function doNothing () {
+      }
+
+      
+      
+     function searchLocationsNear(center) {
+         //clearLocations();
+
+         //var radius = document.getElementById('radiusSelect').value;
+         //var searchUrl = 'storelocator.php?lat=' + center.lat() + '&lng=' + center.lng() + '&radius=' + radius;
+         //downloadUrl(searchUrl, function(data) {
+         
+         var text = "<markers>"+
+  "<marker treeID='1' latitude='42.0' longitude='42.0' type='Evergreen' height='Tall' difficulty='Intermediate' />"+
+  "<marker treeID='2' latitude='42.0' longitude='30.0' type='Evergreen' height='Tall' difficulty='Intermediate' />"+
+  "<marker treeID='3' latitude='41.0' longitude='-82.0' type='Deciduous' height='Medium' difficulty='Beginner' />"+
+"</markers>";
+
+parser = new DOMParser();
+xmlDoc = parser.parseFromString(text,"text/xml");
+
+for (var i = 0; i < markerNodes.length; i++) {
+    var id = markerElem.getAttribute('id');
+    var treeID = markerNodes[i].getAttribute("treeID");
+    var type = markerNodes[i].getAttribute("type");
+    var height = markerNodes[i].getAttribute("height");
+    var difficulty = markerNodes[i].getAttribute("difficulty");
+    var point = new google.maps.LatLng(
+        parseFloat(markerNodes[i].getAttribute("latitude")),
+        parseFloat(markerNodes[i].getAttribute("longitude"))
+    );
+
+    var infowincontent = document.createElement('div');
+    var strong = document.createElement('strong');
+    strong.textContent = name;
+    infowincontent.appendChild(strong);
+    infowincontent.appendChild(document.createElement('br'));
+
+    var txt = document.createElement('txt');
+    txt.textContent = address;
+    infowincontent.appendChild(txt);
+    //var icon = customLabel[type] || {};
+}
+
+    var marker = new google.maps.Marker({
+      map: map,
+      position: point,
+      //label: icon.label
+    });
+    marker.addListener('click', function() {
+      infoWindow.setContent(infowincontent);
+      infoWindow.open(map, marker);
+    });
+      
+      
+      
+      
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrO3nDWPpR3MJ36pNw0dTdmvWEsWKjTEk&callback=initMap">
+    </script>
+  </body>
+</html>
