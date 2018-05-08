@@ -229,13 +229,25 @@
 
             var infowincontent = document.createElement('div');
             var strong = document.createElement('strong');
-            strong.textContent = treeID
+            strong.textContent = "Tree ID: " + treeID
             infowincontent.appendChild(strong);
             infowincontent.appendChild(document.createElement('br'));
 
-            var text = document.createElement('text');
-            text.textContent = type
-            infowincontent.appendChild(text);
+            var typetext = document.createElement('text');
+            typetext.textContent = "Type: " + type
+            infowincontent.appendChild(typetext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var heighttext = document.createElement('text');
+            heighttext.textContent = "Height: " + height
+            infowincontent.appendChild(heighttext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var latlontext = document.createElement('text');
+            latlontext.textContent = "Location: " + point
+            infowincontent.appendChild(latlontext);
+            infowincontent.appendChild(document.createElement('br'));
+
             //var icon = customLabel[type] || {};
             var marker = new google.maps.Marker({
               map: map,
