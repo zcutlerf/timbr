@@ -133,6 +133,7 @@
     <div id="form">
       <table>
       <tr><th>Enter a New Tree!</th></tr>
+      <tr><td>Username:</td> <td><input id='username'></td></tr>
       <tr><td>Type:</td> <td><select id='type'> +
                  <option value='Deciduous' SELECTED>Deciduous</option>
                  <option value='Evergreen'>Evergreen</option>
@@ -147,6 +148,7 @@
                  <option value='Intermediate'>Intermediate</option>
                  <option value='Difficult'>Difficult</option>
                  </select> </td></tr>
+      <tr><td>Description of the tree:</td><td><input id='description'></td></tr>
       <tr><td>
       </td><td>
       <input type='button' value='Save' onclick='saveData()'/>
@@ -219,6 +221,7 @@
           var xml = data.responseXML;
           var markers = xml.documentElement.getElementsByTagName('marker');
           Array.prototype.forEach.call(markers, function(markerElem) {
+            var User = markerElem.getAttribute('User');
             var treeID = markerElem.getAttribute('treeID');
             var point = new google.maps.LatLng(
                 parseFloat(markerElem.getAttribute('latitude')),
@@ -226,10 +229,11 @@
             var type = markerElem.getAttribute('type');
             var height = markerElem.getAttribute('height');
             var difficulty = markerElem.getAttribute('difficulty');
+            var description = markerElem.getAttribute('description');
 
             var infowincontent = document.createElement('div');
             var strong = document.createElement('strong');
-            strong.textContent = "Tree ID: " + treeID
+            strong.textContent = "Username: " + User
             infowincontent.appendChild(strong);
             infowincontent.appendChild(document.createElement('br'));
 
@@ -246,6 +250,16 @@
             var latlontext = document.createElement('text');
             latlontext.textContent = "Location: " + point
             infowincontent.appendChild(latlontext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('text');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('button');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
             infowincontent.appendChild(document.createElement('br'));
 
             //var icon = customLabel[type] || {};
@@ -276,13 +290,16 @@
       }
 
       function saveData() {
+        var User = document.getElementById('username').value;
         var type = document.getElementById('type').value;
         var height = document.getElementById('height').value;
         var difficulty = document.getElementById('difficulty').value;
         var latlng = marker.getPosition();
-        var url = 'tree.php?type=' + type +
+        var description = document.getElementById('description').value;
+        var url = 'tree.php?User=' + User + '&type=' + type +
                   '&height=' + height + '&difficulty=' + difficulty +
-                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng();
+                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng() +
+                  '&description=' + description;
 
         downloadUrl(url, function(data, responseCode) {
 
