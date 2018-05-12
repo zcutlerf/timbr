@@ -1,3 +1,5 @@
+
+<?php
 //local version for now
 //changes from local to local:
 //localcreds.php instead of creds.php
@@ -7,7 +9,6 @@
 // 1. make a "delete tree" button that
 // 2. puts the treeID into a variable
 // 3. sends that treeID to the deltree.php script
-<?php
 
 require("localcreds.php");
 
