@@ -49,12 +49,14 @@ $ind=0;
 while ($row = @mysqli_fetch_assoc($result)){
   // Add to XML document node
   echo '<marker ';
+  echo 'User="' . parseToXML($row['User']) . '" ';
   echo 'treeID="' . $row['treeID'] . '" ';
   echo 'latitude="' . $row['latitude'] . '" ';
   echo 'longitude="' . $row['longitude'] . '" ';
   echo 'type="' . parseToXML($row['type']) . '" ';
   echo 'height="' . parseToXML($row['height']) . '" ';
   echo 'difficulty="' . parseToXML($row['difficulty']) . '" ';
+  echo 'description="' . parseToXML($row['description']) . '" ';
   echo '/>';
   $ind = $ind + 1;
 }
