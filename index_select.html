@@ -1,0 +1,462 @@
+<!DOCTYPE html >
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>Timbr test</title>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin:0;
+        padding:0;
+      }
+
+      .pac-controls label {
+        font-family: Roboto;
+        font-size: 13px;
+        font-weight: 300;
+      }
+
+      #pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 1%;
+        text-overflow: ellipsis;
+      }
+
+      #row {
+        background-color: #195635;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+        width: 100%;
+        border-bottom: 10px;
+        border-bottom-color: white;
+      }
+
+      #row th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: center;
+        background-color: #4CAF50;
+        color: white;
+      }
+
+      #row td {
+        /*border: 1px solid #ddd;*/
+        padding: 8px;
+        color: white;
+      }
+
+      #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+      }
+      #target {
+        width: 345px;
+      }
+
+      #intype {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+      }
+
+      #inheight {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+      }
+
+      #indifficulty {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        padding: 2%;
+      }
+
+      #form {
+        display: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <table id="row">
+        <tr>
+            <th rowspan="2">TIMBR LOGO</th>
+            <td colspan="4">Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag.</td>
+        </tr>
+        <tr>
+            <td>Location:     <input id="pac-input" class="controls" type="text" placeholder="Search Box"></td>
+            <td>Type:     <select id='intype'> +
+                <option value='Any' SELECTED>Any</option>
+                <option value='Deciduous'>Deciduous</option>
+                <option value='Evergreen'>Evergreen</option>
+                </select>
+            </td>
+            <td>Height:     <select id='inheight'> +
+                <option value='Any' SELECTED>Any</option>
+                <option value='Short'>Short</option>
+                <option value='Medium'>Medium</option>
+                <option value='Tall'>Tall</option>
+                </select>
+            </td>
+            <td>Climbing difficulty:     <select id='indifficulty'> +
+                <option value='Any' SELECTED>Any</option>
+                <option value='Easy'>Easy</option>
+                <option value='Intermediate'>Intermediate</option>
+                <option value='Difficult'>Difficult</option>
+                </select>
+            </td>
+            <td><input type='button' value='Filter' onclick='reloadTrees()'/>
+            </td>
+        </tr>
+      </table>
+
+    <div id="map" height="100%" width="100%"></div>
+
+    <div id="form">
+      <table>
+      <tr><th>Enter a New Tree!</th></tr>
+      <tr><td>Username:</td> <td><input id='username'></td></tr>
+      <tr><td>Type:</td> <td><select id='type'> +
+                 <option value='Deciduous' SELECTED>Deciduous</option>
+                 <option value='Evergreen'>Evergreen</option>
+                 </select> </td></tr>
+      <tr><td>Height:</td> <td><select id='height'> +
+                 <option value='Short' SELECTED>Short</option>
+                 <option value='Medium'>Medium</option>
+                 <option value='Tall'>Tall</option>
+                 </select> </td></tr>
+      <tr><td>Climbing difficulty:</td> <td><select id='difficulty'> +
+                 <option value='Easy' SELECTED>Easy</option>
+                 <option value='Intermediate'>Intermediate</option>
+                 <option value='Difficult'>Difficult</option>
+                 </select> </td></tr>
+      <tr><td>Description of the tree:</td><td><input id='description'></td></tr>
+      <tr><td>
+      </td><td>
+      <input type='button' value='Save' onclick='saveData()'/>
+      </td>
+      </tr>
+      </table>
+    </div>
+    <div id="message">Location saved</div>
+    <script>
+      var map;
+      var marker;
+      var infowindow;
+      var messagewindow;
+      var existinginfowindow; //new
+      var allmarkers = []; //array to store markers
+
+      function initMap() {
+        initAutocomplete();
+
+        var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">About Us</h1>'+
+            '<div id="bodyContent">'+
+            '<p>Emily, Zoe, and Eliana are Oberlin students who made this!</p>'+
+            '</div>'+
+            '</div>';
+
+        var initinfowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        var initmarker = new google.maps.Marker({
+          position: {lat: 41.293067, lng: -82.218726},
+          map: map,
+          icon: 'home.png',
+          title: 'About Us'
+        });
+
+        initmarker.addListener('click', function() {
+          initinfowindow.open(map, initmarker);
+        });
+
+
+
+       /* var infowincontent = document.createElement('div');
+        infowincontent.appendChild("Hello");
+
+        marker = new google.maps.Marker({
+            position: {lat: 41.293067, lng: -82.218726},
+            map: map,
+            title: 'Hello World!',
+
+        });
+
+        marker.setMap(map);
+*/
+
+
+        infowindow = new google.maps.InfoWindow({
+          content: document.getElementById('form')
+        });
+
+        messagewindow = new google.maps.InfoWindow({
+          content: document.getElementById('message')
+        });
+
+        //new
+        existinginfowindow = new google.maps.InfoWindow;
+        downloadUrl('load_table2.php', function(data) {
+          var xml = data.responseXML;
+          var markers = xml.documentElement.getElementsByTagName('marker');
+          Array.prototype.forEach.call(markers, function(markerElem) {
+            var User = markerElem.getAttribute('User');
+            var treeID = markerElem.getAttribute('treeID');
+            var point = new google.maps.LatLng(
+                parseFloat(markerElem.getAttribute('latitude')),
+                parseFloat(markerElem.getAttribute('longitude')));
+            var type = markerElem.getAttribute('type');
+            var height = markerElem.getAttribute('height');
+            var difficulty = markerElem.getAttribute('difficulty');
+            var description = markerElem.getAttribute('description');
+
+            var infowincontent = document.createElement('div');
+            var strong = document.createElement('strong');
+            strong.textContent = "Username: " + User
+            infowincontent.appendChild(strong);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var typetext = document.createElement('text');
+            typetext.textContent = "Type: " + type
+            infowincontent.appendChild(typetext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var heighttext = document.createElement('text');
+            heighttext.textContent = "Height: " + height
+            infowincontent.appendChild(heighttext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var latlontext = document.createElement('text');
+            latlontext.textContent = "Location: " + point
+            infowincontent.appendChild(latlontext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('text');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('button');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            //var icon = customLabel[type] || {};
+            var marker = new google.maps.Marker({
+              map: map,
+              position: point,
+              icon: "tree.png"
+            });
+            allmarkers.push(marker);
+            marker.addListener('click', function() {
+              existinginfowindow.setContent(infowincontent);
+              existinginfowindow.open(map, marker);
+            });
+          });
+        });
+
+        google.maps.event.addListener(map, 'click', function(event) {
+          marker = new google.maps.Marker({
+            position: event.latLng,
+            map: map,
+            icon: "tree.png"
+          });
+
+          google.maps.event.addListener(marker, 'click', function() {
+            document.getElementById('form').style.display = "block";
+            infowindow.open(map, marker);
+          });
+        });
+      }
+
+      function saveData() {
+        var User = document.getElementById('username').value;
+        var type = document.getElementById('type').value;
+        var height = document.getElementById('height').value;
+        var difficulty = document.getElementById('difficulty').value;
+        var latlng = marker.getPosition();
+        var description = document.getElementById('description').value;
+        var url = 'tree.php?User=' + User + '&type=' + type +
+                  '&height=' + height + '&difficulty=' + difficulty +
+                  '&lat=' + latlng.lat() + '&lng=' + latlng.lng() +
+                  '&description=' + description;
+
+        downloadUrl(url, function(data, responseCode) {
+
+          if (responseCode == 200 /*&& data.length <= 1*/) {
+            infowindow.close();
+            messagewindow.open(map, marker);
+          }
+        });
+      }
+
+      function reloadTrees() {
+        //delete the google maps markers
+        for(i=0; i<allmarkers.length; i++){
+          allmarkers[i].setMap(null);
+        }
+        allmarkers = [];
+
+        var intype = document.getElementById('intype').value;
+        var inheight = document.getElementById('inheight').value;
+        var indifficulty = document.getElementById('indifficulty').value;
+
+        var selecturl = 'select_trees.php?type=' + intype + '&height=' + inheight + '&difficulty=' + indifficulty;
+        downloadUrl(selecturl, function(data) {
+          var xml = data.responseXML;
+          var markers = xml.documentElement.getElementsByTagName('marker');
+          Array.prototype.forEach.call(markers, function(markerElem) {
+            var User = markerElem.getAttribute('User');
+            var treeID = markerElem.getAttribute('treeID');
+            var point = new google.maps.LatLng(
+                parseFloat(markerElem.getAttribute('latitude')),
+                parseFloat(markerElem.getAttribute('longitude')));
+            var type = markerElem.getAttribute('type');
+            var height = markerElem.getAttribute('height');
+            var difficulty = markerElem.getAttribute('difficulty');
+            var description = markerElem.getAttribute('description');
+
+            var infowincontent = document.createElement('div');
+            var strong = document.createElement('strong');
+            strong.textContent = "Username: " + User
+            infowincontent.appendChild(strong);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var typetext = document.createElement('text');
+            typetext.textContent = "Type: " + type
+            infowincontent.appendChild(typetext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var heighttext = document.createElement('text');
+            heighttext.textContent = "Height: " + height
+            infowincontent.appendChild(heighttext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var latlontext = document.createElement('text');
+            latlontext.textContent = "Location: " + point
+            infowincontent.appendChild(latlontext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('text');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('button');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            //var icon = customLabel[type] || {};
+            var marker = new google.maps.Marker({
+              map: map,
+              position: point,
+              icon: "tree.png"
+            });
+            allmarkers.push(marker);
+            marker.addListener('click', function() {
+              existinginfowindow.setContent(infowincontent);
+              existinginfowindow.open(map, marker);
+            });
+          });
+        });
+      }
+
+      function downloadUrl(url, callback) {
+        var request = window.ActiveXObject ?
+            new ActiveXObject('Microsoft.XMLHTTP') :
+            new XMLHttpRequest;
+
+        request.onreadystatechange = function() {
+          if (request.readyState == 4) {
+            request.onreadystatechange = doNothing;
+            callback(request, request.status);
+          }
+        };
+
+        request.open('GET', url, true);
+        request.send(null);
+      }
+
+      function doNothing () {
+      }
+
+      function initAutocomplete() {
+        var oberlin = {lat: 41.293067, lng: -82.218726};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: oberlin,
+          zoom: 15,
+          mapTypeControl: false
+        });
+        map.setMapTypeId('hybrid');
+
+        // Create the search box and link it to the UI element.
+        var input = document.getElementById('pac-input');
+        var inrow = document.getElementById('row');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(inrow);
+
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        //var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+      }
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrO3nDWPpR3MJ36pNw0dTdmvWEsWKjTEk&libraries=places&callback=initMap">
+    </script>
+  </body>
+</html>
