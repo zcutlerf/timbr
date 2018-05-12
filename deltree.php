@@ -1,4 +1,3 @@
-
 <?php
 //local version for now
 //changes from local to local:
