@@ -1,6 +1,6 @@
 <?php
 //local version for now
-//changes from local to local:
+//changes from local to nonlocal:
 //localcreds.php instead of creds.php
 //mydb instead of id#_mydb (id5405142)
 
@@ -9,13 +9,14 @@
 // 2. puts the treeID into a variable
 // 3. sends that treeID to the deltree.php script
 
-require("localcreds.php");
+require("creds.php");
 
+$user = $_GET['User']; //gets entered user
 $delID = $_GET['treeID']; //gets the ID of the tree we want to delete
 
 // Opens a connection to a MySQL server.
 
-$connection=mysqli_connect("localhost:3306", $username, $password, $database);
+$connection=mysqli_connect("localhost", $username, $password, $database);
 if (!$connection){
   echo "Failed to connect to MySQL: " . mysqli_connect_error() . PHP_EOL;
   exit;
@@ -27,12 +28,12 @@ if (!$connection){
 echo "Host information: " . mysqli_get_host_info($connection) . PHP_EOL;
 
 // Sets the active MySQL database.
-$db_selected = mysqli_select_db($connection, "mydb");
+$db_selected = mysqli_select_db($connection, "id5405142_mydb");
 if (!$db_selected) {
   die ('Can\'t use db : ' . mysql_error());
 }
 
-$delSql = "DELETE FROM Tree WHERE treeID=$delID";
+$delSql = "DELETE FROM Tree WHERE treeID=$delID AND User=$user";
 
 //run the query
 if(mysqli_query($connection, $delSql)){

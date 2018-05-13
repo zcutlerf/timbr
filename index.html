@@ -100,8 +100,8 @@
   <body>
     <table id="row">
         <tr>
-            <th rowspan="2">TIMBR LOGO</th>
-            <td colspan="4">Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag.</td>
+            <th rowspan="2"><img src="timbr-logo.gif" alt="" border=3 height=100 width=100></img></th>
+            <td colspan="4">Welcome to Timbr: Yelp for Trees. <br> </br> Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag.</td>
         </tr>
         <tr>
             <td>Location:     <input id="pac-input" class="controls" type="text" placeholder="Search Box"></td>
@@ -229,25 +229,13 @@
 
             var infowincontent = document.createElement('div');
             var strong = document.createElement('strong');
-            strong.textContent = "Tree ID: " + treeID
+            strong.textContent = treeID
             infowincontent.appendChild(strong);
             infowincontent.appendChild(document.createElement('br'));
 
-            var typetext = document.createElement('text');
-            typetext.textContent = "Type: " + type
-            infowincontent.appendChild(typetext);
-            infowincontent.appendChild(document.createElement('br'));
-
-            var heighttext = document.createElement('text');
-            heighttext.textContent = "Height: " + height
-            infowincontent.appendChild(heighttext);
-            infowincontent.appendChild(document.createElement('br'));
-
-            var latlontext = document.createElement('text');
-            latlontext.textContent = "Location: " + point
-            infowincontent.appendChild(latlontext);
-            infowincontent.appendChild(document.createElement('br'));
-
+            var text = document.createElement('text');
+            text.textContent = type
+            infowincontent.appendChild(text);
             //var icon = customLabel[type] || {};
             var marker = new google.maps.Marker({
               map: map,

@@ -3,12 +3,13 @@
 require("creds.php");
 
 // Gets data from URL parameters.
+$user = $_GET['User'];
 $type = $_GET['type'];
 $height = $_GET['height'];
 $difficulty = $_GET['difficulty'];
 $latitude = $_GET['lat'];
 $longitude = $_GET['lng'];
-
+$description = $_GET['description'];
 // Opens a connection to a MySQL server.
 
 $connection=mysqli_connect("localhost", $username, $password, $database);
@@ -29,8 +30,8 @@ if (!$db_selected) {
 }
 
 // Inserts new row with place data.
-$sql = "INSERT INTO Tree (treeID, latitude, longitude, type, height, difficulty)
-VALUES (DEFAULT,'$latitude', '$longitude', '$type', '$height', '$difficulty')";
+$sql = "INSERT INTO Tree (User, treeID, latitude, longitude, type, height, difficulty, description)
+VALUES ('$user', DEFAULT,'$latitude', '$longitude', '$type', '$height', '$difficulty', '$description')";
 
 //(DEFAULT,'43', '42', 'dec', 'ten feet', '5')";
 
