@@ -1,0 +1,11 @@
+This is the code for timbr.city, a website that crowdsources trees that are good for tree climbing.
+Created by Emily Hamlin, Zoe Cutler, and Eliana Grosof for CSCI 241 in Spring 2018.
+
+Files and what they do:
+
+index.html - our website, in HTML, CSS and Javascript, with integrations with XML and PHP
+id5405142_mydb.sql - the structure of our SQL database
+tree.php - adds trees to database
+load_table2.php - loads tables onto website
+select_trees.php - filters trees based on user criteria
+deltree.php - deletes a tree
