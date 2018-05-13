@@ -100,7 +100,9 @@
   <body>
     <table id="row">
         <tr>
-            
+            <th rowspan="2">TIMBR LOGO</th>
+            <td colspan="4">Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag.</td>
+        </tr>
         <tr>
             <td>Location:     <input id="pac-input" class="controls" type="text" placeholder="Search Box"></td>
             <td>Type:     <select id='intype'> +
@@ -122,6 +124,8 @@
                 <option value='Intermediate'>Intermediate</option>
                 <option value='Difficult'>Difficult</option>
                 </select>
+            </td>
+            <td><input type='button' value='Filter' onclick='reloadTrees()'/>
             </td>
         </tr>
       </table>
@@ -161,6 +165,7 @@
       var infowindow;
       var messagewindow;
       var existinginfowindow; //new
+      var allmarkers = []; //array to store markers
 
       function initMap() {
         initAutocomplete();
@@ -231,15 +236,6 @@
 
             var infowincontent = document.createElement('div');
             var strong = document.createElement('strong');
-<<<<<<< HEAD
-            strong.textContent = treeID
-            infowincontent.appendChild(strong);
-            infowincontent.appendChild(document.createElement('br'));
-
-            var text = document.createElement('text');
-            text.textContent = type
-            infowincontent.appendChild(text);
-=======
             strong.textContent = "Username: " + User
             infowincontent.appendChild(strong);
             infowincontent.appendChild(document.createElement('br'));
@@ -269,13 +265,13 @@
             infowincontent.appendChild(desctext);
             infowincontent.appendChild(document.createElement('br'));
 
->>>>>>> ad2001a876d09a1456f105eb44c825805ae2afbb
             //var icon = customLabel[type] || {};
             var marker = new google.maps.Marker({
               map: map,
               position: point,
               icon: "tree.png"
             });
+            allmarkers.push(marker);
             marker.addListener('click', function() {
               existinginfowindow.setContent(infowincontent);
               existinginfowindow.open(map, marker);
@@ -315,6 +311,78 @@
             infowindow.close();
             messagewindow.open(map, marker);
           }
+        });
+      }
+
+      function reloadTrees() {
+        //delete the google maps markers
+        for(i=0; i<allmarkers.length; i++){
+          allmarkers[i].setMap(null);
+        }
+        allmarkers = [];
+
+        var intype = document.getElementById('intype').value;
+        var inheight = document.getElementById('inheight').value;
+        var indifficulty = document.getElementById('indifficulty').value;
+
+        var selecturl = 'select_trees.php?type=' + intype + '&height=' + inheight + '&difficulty=' + indifficulty;
+        downloadUrl(selecturl, function(data) {
+          var xml = data.responseXML;
+          var markers = xml.documentElement.getElementsByTagName('marker');
+          Array.prototype.forEach.call(markers, function(markerElem) {
+            var User = markerElem.getAttribute('User');
+            var treeID = markerElem.getAttribute('treeID');
+            var point = new google.maps.LatLng(
+                parseFloat(markerElem.getAttribute('latitude')),
+                parseFloat(markerElem.getAttribute('longitude')));
+            var type = markerElem.getAttribute('type');
+            var height = markerElem.getAttribute('height');
+            var difficulty = markerElem.getAttribute('difficulty');
+            var description = markerElem.getAttribute('description');
+
+            var infowincontent = document.createElement('div');
+            var strong = document.createElement('strong');
+            strong.textContent = "Username: " + User
+            infowincontent.appendChild(strong);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var typetext = document.createElement('text');
+            typetext.textContent = "Type: " + type
+            infowincontent.appendChild(typetext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var heighttext = document.createElement('text');
+            heighttext.textContent = "Height: " + height
+            infowincontent.appendChild(heighttext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var latlontext = document.createElement('text');
+            latlontext.textContent = "Location: " + point
+            infowincontent.appendChild(latlontext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('text');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var desctext = document.createElement('button');
+            desctext.textContent = "Description of Tree: " + description
+            infowincontent.appendChild(desctext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            //var icon = customLabel[type] || {};
+            var marker = new google.maps.Marker({
+              map: map,
+              position: point,
+              icon: "tree.png"
+            });
+            allmarkers.push(marker);
+            marker.addListener('click', function() {
+              existinginfowindow.setContent(infowincontent);
+              existinginfowindow.open(map, marker);
+            });
+          });
         });
       }
 
