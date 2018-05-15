@@ -11,7 +11,6 @@
 
 require("creds.php");
 
-$user = $_GET['User']; //gets entered user
 $delID = $_GET['treeID']; //gets the ID of the tree we want to delete
 
 // Opens a connection to a MySQL server.
@@ -33,11 +32,13 @@ if (!$db_selected) {
   die ('Can\'t use db : ' . mysql_error());
 }
 
-$delSql = "DELETE FROM Tree WHERE treeID=$delID AND User=$user";
+//Delete specific tree.
+//index.html should check whether this operation is allowed
+$delSql = "DELETE FROM Tree WHERE treeID=$delID";
 
 //run the query
 if(mysqli_query($connection, $delSql)){
-    //echo "Records inserted successfully.";
+    echo "Records inserted successfully.";
 } else{
     echo "ERROR: Could not execute $sql. \n" . mysqli_error($connection);
 }

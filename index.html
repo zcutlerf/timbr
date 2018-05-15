@@ -1,8 +1,12 @@
 <!DOCTYPE html >
   <head>
+    <link rel=“shortcut icon” type=“image/x-icon” href="/favicon.ico">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>Timbr test</title>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Cabin+Sketch" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Quicksand" />
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/threefourtwotwo" type="text/css"/>
+    <title>Timbr - Find Hot New Trees in Your Area</title>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -17,34 +21,57 @@
       }
 
       .pac-controls label {
-        font-family: Roboto;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-family: "Cabin Sketch";
         font-size: 13px;
         font-weight: 300;
       }
 
       #pac-input {
         background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-family: "Cabin Sketch";
+        font-size: 14px;
         font-weight: 300;
-        padding: 1%;
+        /*padding: 1%;*/
+        border-radius: 4px;
+        text-overflow: ellipsis;
+      }
+
+      #pac-input2 {
+        background-color: #fff;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-family: "Cabin Sketch";
+        font-size: 10px;
+        font-weight: 300;
+        padding: 0%;
         text-overflow: ellipsis;
       }
 
       #row {
         background-color: #195635;
-        font-family: Roboto;
-        font-size: 15px;
+        /*font-family: Roboto;*/
+        font-family: "Cabin Sketch";
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-size: 14px;
         font-weight: 300;
-        padding: 2%;
+        padding: 1%;
         width: 100%;
-        border-bottom: 10px;
+        border-bottom: 5px;
         border-bottom-color: white;
       }
 
+
       #row th {
-        padding-top: 12px;
-        padding-bottom: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         text-align: center;
         background-color: #4CAF50;
         color: white;
@@ -52,7 +79,32 @@
 
       #row td {
         /*border: 1px solid #ddd;*/
-        padding: 8px;
+        padding: 6px;
+        color: white;
+      }
+
+      #row2 {
+        background-color: #195635;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-size: 9px;
+        font-weight: 300;
+        padding: 0%;
+        width: 100%;
+        border-bottom: 0px;
+        border-bottom-color: white;
+      }
+
+
+      #row2 th {
+        font-weight: 600;
+        color: white;
+      }
+
+      #row2 td {
+        /*border: 1px solid #ddd;*/
+        padding: 0px;
         color: white;
       }
 
@@ -69,39 +121,103 @@
 
       #intype {
         background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
+        /*font-family: Roboto;*/
+        font-family: "Cabin Sketch";
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-size: 13px;
         font-weight: 300;
         padding: 2%;
       }
 
       #inheight {
         background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-family: "Cabin Sketch";
+        font-size: 13px;
         font-weight: 300;
         padding: 2%;
       }
 
       #indifficulty {
         background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-family: "Cabin Sketch";
+        font-size: 13px;
         font-weight: 300;
         padding: 2%;
+      }
+
+      #filter {
+        background-color: #fff;
+        /*font-family: Roboto;*/
+        /*font-family: Quicksand;*/
+        /*font-family: 'ThreeFourTwoTwoRegular';*/
+        font-family: "Cabin Sketch";
+        font-size: 13px;
+        font-weight: 300;
+        width: 100%;
+        padding: 4%;
+        border-radius: 4px;
       }
 
       #form {
         display: none;
       }
 
+      #form th {
+        font-size: 26px;
+        padding-top: 5%;
+        padding-bottom: 5%;
+        text-align: left;
+      }
+
+      #timbr {
+          font-size: 40px;
+      }
+
+      #logo {
+          padding-left: 2%;
+          padding-right: 2%;
+      }
+
+      #description {
+          width: 97.75%;
+          padding-bottom: 20%;
+      }
+
+      #message {
+        display: none;
+      }
+
+      @media only screen and (max-width: 600px) {
+        table.row1 {
+            display: none;
+        }
+      }
+
+      @media only screen and (min-width: 601px) {
+        table.row2 {
+            display: none;
+        }
+      }
+
     </style>
   </head>
   <body>
-    <table id="row">
+    <!--The header row at the top of the website, for the computer version.
+        Displays location search box and filter controls for type, difficulty, and height.-->
+    <table id="row" class="row1">
         <tr>
-          <th rowspan="2"><img src="timbr-logo.gif" alt="" border=3 height=70 width=80></img></th>
-          <td colspan="4"> Welcome to Timbr: Yelp for Trees. <br> </br> Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag.</td>
+
+            <th rowspan="2" id="logo"><img src="timbr-logo.gif" alt="" border=3 height=70 width=80/></th>
+            <td colspan="5"> <div id="timbr">Welcome to Timbr: Yelp for Trees.</div><br> Enter the location and parameters of the tree you want to climb! Or place a pin on a tree you want to tag. Note: If you use ' or " anywhere, your tree will not be added. Otherwise, if something doesn't work, try refreshing the page. </td>
+
+        </tr>
         <tr>
             <td>Location:     <input id="pac-input" class="controls" type="text" placeholder="Search Box"></td>
             <td>Type:     <select id='intype'> +
@@ -124,15 +240,38 @@
                 <option value='Difficult'>Difficult</option>
                 </select>
             </td>
+            <td><button type='button' id='filter' onclick='reloadTrees()'>Filter</button>
+            </td>
         </tr>
       </table>
 
+      <!--The header row at the top of the website, for the mobile version.
+          Displays location search box only.-->
+      <table id="row2" class="row2">
+        <tr>
+        <th colspan="3">Welcome to Timbr: Yelp for Trees.</th>
+        </tr>
+        <tr>
+            <td colspan="3"> Enter the location of the tree you want to climb! Or place a pin on a tree you want to tag. Note: do not use ' or " in the description or your tree will not be added. </td>
+        </tr>
+        <tr>
+            <td>Location:     <input id="pac-input2" class="controls" type="text" placeholder="Search Box"></td>
+            <td></td>
+        </tr>
+      </table>
+
+    <!-- Displays the map -->
     <div id="map" height="100%" width="100%"></div>
 
+
+    <!--Form for entering a new tree.
+        Allows username, type, height, difficulty, and description as inputs.
+        Shows up when the user clicks on a spot on the map to create a marker, then clicks on the created marker.
+        When the "submit" button is pressed, saveData() is called-->
     <div id="form">
       <table>
-      <tr><th>Enter a New Tree!</th></tr>
-      <tr><td>Username:</td> <td><input id='username'></td></tr>
+      <tr><th colspan="2">Enter a New Tree!</th></tr>
+      <tr><td>Username:</td> <td><input type='text' id='username'></td></tr>
       <tr><td>Type:</td> <td><select id='type'> +
                  <option value='Deciduous' SELECTED>Deciduous</option>
                  <option value='Evergreen'>Evergreen</option>
@@ -147,25 +286,32 @@
                  <option value='Intermediate'>Intermediate</option>
                  <option value='Difficult'>Difficult</option>
                  </select> </td></tr>
-      <tr><td>Description of the tree:</td><td><input id='description'></td></tr>
+      <tr></tr>
+      <tr><td colspan="2">Description of the tree:</td><td></td></tr>
+      <tr><td colspan="2"><input id='description'></td></tr>
       <tr><td>
       </td><td>
-      <input type='button' value='Save' onclick='saveData()'/>
+      <input type='submit' value='Save' onclick='saveData()'>
       </td>
       </tr>
       </table>
     </div>
     <div id="message">Location saved</div>
+
+    <!-- All scripts below...-->
     <script>
       var map;
       var marker;
       var infowindow;
       var messagewindow;
       var existinginfowindow; //new
+      var allmarkers = []; //array to store markers
 
+      /* modified from https://developers.google.com/maps/documentation/javascript/mysql-to-maps */
       function initMap() {
         initAutocomplete();
 
+        // Creates the 'About Us' window and makes it show up when clicked
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
@@ -174,48 +320,32 @@
             '<p>Emily, Zoe, and Eliana are Oberlin students who made this!</p>'+
             '</div>'+
             '</div>';
-
         var initinfowindow = new google.maps.InfoWindow({
           content: contentString
         });
-
         var initmarker = new google.maps.Marker({
           position: {lat: 41.293067, lng: -82.218726},
           map: map,
           icon: 'home.png',
           title: 'About Us'
         });
-
         initmarker.addListener('click', function() {
           initinfowindow.open(map, initmarker);
         });
 
-
-
-       /* var infowincontent = document.createElement('div');
-        infowincontent.appendChild("Hello");
-
-        marker = new google.maps.Marker({
-            position: {lat: 41.293067, lng: -82.218726},
-            map: map,
-            title: 'Hello World!',
-
-        });
-
-        marker.setMap(map);
-*/
-
-
+        // initializes infowindow with the information from 'form', but doesn't place/display on map
         infowindow = new google.maps.InfoWindow({
           content: document.getElementById('form')
         });
 
+        // initializes a message window, which will display the contents of 'message'
         messagewindow = new google.maps.InfoWindow({
           content: document.getElementById('message')
         });
 
         //new
         existinginfowindow = new google.maps.InfoWindow;
+        // pulls info from the php file and loads in each tree:
         downloadUrl('load_table2.php', function(data) {
           var xml = data.responseXML;
           var markers = xml.documentElement.getElementsByTagName('marker');
@@ -230,20 +360,12 @@
             var difficulty = markerElem.getAttribute('difficulty');
             var description = markerElem.getAttribute('description');
 
+            // the following few blocks of code just add and format text to be printed in the info window for the loaded tree
             var infowincontent = document.createElement('div');
-            var strong = document.createElement('strong');
-<<<<<<< HEAD
-            strong.textContent = treeID
-            infowincontent.appendChild(strong);
-            infowincontent.appendChild(document.createElement('br'));
 
-            var text = document.createElement('text');
-            text.textContent = type
-            infowincontent.appendChild(text);
-=======
-            strong.textContent = "Username: " + User
-            infowincontent.appendChild(strong);
-            infowincontent.appendChild(document.createElement('br'));
+            var desctext = document.createElement('h2');
+            desctext.textContent = "“" + description + "”"
+            infowincontent.appendChild(desctext);
 
             var typetext = document.createElement('text');
             typetext.textContent = "Type: " + type
@@ -255,28 +377,75 @@
             infowincontent.appendChild(heighttext);
             infowincontent.appendChild(document.createElement('br'));
 
+            var difftext = document.createElement('text');
+            difftext.textContent = "Difficulty: " + difficulty
+            infowincontent.appendChild(difftext);
+            infowincontent.appendChild(document.createElement('br'));
+
             var latlontext = document.createElement('text');
             latlontext.textContent = "Location: " + point
             infowincontent.appendChild(latlontext);
             infowincontent.appendChild(document.createElement('br'));
-
-            var desctext = document.createElement('text');
-            desctext.textContent = "Description of Tree: " + description
-            infowincontent.appendChild(desctext);
             infowincontent.appendChild(document.createElement('br'));
 
-            var desctext = document.createElement('button');
-            desctext.textContent = "Description of Tree: " + description
-            infowincontent.appendChild(desctext);
+            // creates a delete button. When pushed, the user is prompted to enter the username they used to place the tree
+            var verify = document.createElement('text');
+            verify.textContent = "Verify username to delete: "
+            var verifyInput = document.createElement('input');
+            verifyInput.id = "userInput";
+            var submit = document.createElement('button');
+            submit.textContent = "Submit"
+
+            // if a user inputs the correct username, the tree is deleted
+            submit.onclick = function deletetree() {
+                var userInput = document.getElementById("userInput").value;
+                if(userInput == User) {
+                    for (var i = 0; i < allmarkers.length; i++) {
+                        if (allmarkers[i].id == treeID) {
+                            allmarkers[i].setMap(null);
+                            break;
+                        }
+                    }
+                    var delurl = 'deltree.php?treeID=' + treeID;
+
+                    downloadUrl(delurl, function(data, responseCode) {
+                    });
+                    alert("Successfully deleted tree.")
+                } else {
+                    alert("Incorect username. Can't delete tree.")
+                }
+            }
+
+            // actually adds the delete button, etc. to the info window
+            var buttontext = document.createElement('button');
+            buttontext.textContent = "Delete"
+            buttontext.onclick = function() {
+                infowincontent.appendChild(verify);
+                infowincontent.appendChild(verifyInput);
+                infowincontent.appendChild(submit);
+            };
+            infowincontent.appendChild(buttontext);
             infowincontent.appendChild(document.createElement('br'));
 
->>>>>>> ad2001a876d09a1456f105eb44c825805ae2afbb
-            //var icon = customLabel[type] || {};
+            // sets the marker icon based on the type of tree
+            if (type == "Deciduous") {
+                var icon = "deciduous.png"
+            } else {
+                var icon = "evergreen.png"
+            }
+
+            // creates the marker and places it on the map.
             var marker = new google.maps.Marker({
               map: map,
               position: point,
-              icon: "tree.png"
+              icon: icon
             });
+            // creates an id for the marker, which is actually used earlier in the code to delete a marker.
+            marker.id = treeID;
+
+            allmarkers.push(marker);
+
+            // when the marker is clicked, displays the info window
             marker.addListener('click', function() {
               existinginfowindow.setContent(infowincontent);
               existinginfowindow.open(map, marker);
@@ -284,6 +453,8 @@
           });
         });
 
+
+        // when a place on the map is clicked, creates a marker at that position.
         google.maps.event.addListener(map, 'click', function(event) {
           marker = new google.maps.Marker({
             position: event.latLng,
@@ -291,6 +462,7 @@
             icon: "tree.png"
           });
 
+          // when this new marker is clicked, display the form
           google.maps.event.addListener(marker, 'click', function() {
             document.getElementById('form').style.display = "block";
             infowindow.open(map, marker);
@@ -298,8 +470,12 @@
         });
       }
 
+      // called when form for new tree is submitted
+      /* modified from https://developers.google.com/maps/documentation/javascript/info-windows-to-db */
       function saveData() {
+        // saves all the variables from 'form'
         var User = document.getElementById('username').value;
+        alert("You've added a tree! The username you entered was: " + User + ". Make sure to write down this username in case you want to delete the tree later.")
         var type = document.getElementById('type').value;
         var height = document.getElementById('height').value;
         var difficulty = document.getElementById('difficulty').value;
@@ -310,15 +486,136 @@
                   '&lat=' + latlng.lat() + '&lng=' + latlng.lng() +
                   '&description=' + description;
 
+        // sends variables to database
         downloadUrl(url, function(data, responseCode) {
 
           if (responseCode == 200 /*&& data.length <= 1*/) {
             infowindow.close();
+            document.getElementById('message').style.display = "block";
             messagewindow.open(map, marker);
           }
         });
       }
 
+      // called when the 'filter' button is pressed in the top menu bar
+      function reloadTrees() {
+        // deletes all the google maps markers from the array of markers (but not from the actual database)
+        for(i=0; i<allmarkers.length; i++){
+          allmarkers[i].setMap(null);
+        }
+        allmarkers = [];
+
+        // gets the values of the three filtering options.
+        var intype = document.getElementById('intype').value;
+        var inheight = document.getElementById('inheight').value;
+        var indifficulty = document.getElementById('indifficulty').value;
+
+        // loads only the trees matching the criteria into the array. The following code is mostly just copied from initMap()
+        var selecturl = 'select_trees.php?type=' + intype + '&height=' + inheight + '&difficulty=' + indifficulty;
+        downloadUrl(selecturl, function(data) {
+          var xml = data.responseXML;
+          var markers = xml.documentElement.getElementsByTagName('marker');
+          Array.prototype.forEach.call(markers, function(markerElem) {
+            var User = markerElem.getAttribute('User');
+            var treeID = markerElem.getAttribute('treeID');
+            var point = new google.maps.LatLng(
+                parseFloat(markerElem.getAttribute('latitude')),
+                parseFloat(markerElem.getAttribute('longitude')));
+            var type = markerElem.getAttribute('type');
+            var height = markerElem.getAttribute('height');
+            var difficulty = markerElem.getAttribute('difficulty');
+            var description = markerElem.getAttribute('description');
+
+                        var infowincontent = document.createElement('div');
+
+            var desctext = document.createElement('h2');
+            desctext.textContent = "“" + description + "”"
+            infowincontent.appendChild(desctext);
+
+            var typetext = document.createElement('text');
+            typetext.textContent = "Type: " + type
+            infowincontent.appendChild(typetext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var heighttext = document.createElement('text');
+            heighttext.textContent = "Height: " + height
+            infowincontent.appendChild(heighttext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var difftext = document.createElement('text');
+            difftext.textContent = "Difficulty: " + difficulty
+            infowincontent.appendChild(difftext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            var latlontext = document.createElement('text');
+            latlontext.textContent = "Location: " + point
+            infowincontent.appendChild(latlontext);
+            infowincontent.appendChild(document.createElement('br'));
+            infowincontent.appendChild(document.createElement('br'));
+
+            // creates a delete button. When pushed, the user is prompted to enter the username they used to place the tree
+            var verify = document.createElement('text');
+            verify.textContent = "Verify username to delete: "
+            var verifyInput = document.createElement('input');
+            verifyInput.id = "userInput";
+            var submit = document.createElement('button');
+            submit.textContent = "Submit"
+
+            // if a user inputs the correct username, the tree is deleted
+            submit.onclick = function deletetree() {
+                var userInput = document.getElementById("userInput").value;
+                if(userInput == User) {
+                    for (var i = 0; i < allmarkers.length; i++) {
+                        if (allmarkers[i].id == treeID) {
+                            allmarkers[i].setMap(null);
+                            break;
+                        }
+                    }
+                    var delurl = 'deltree.php?treeID=' + treeID;
+
+                    downloadUrl(delurl, function(data, responseCode) {
+                    });
+                    alert("Successfully deleted tree.")
+                } else {
+                    alert("Incorect username. Can't delete tree.")
+                }
+            }
+
+            // actually adds the delete button, etc. to the info window
+            var buttontext = document.createElement('button');
+            buttontext.textContent = "Delete"
+            buttontext.onclick = function() {
+                infowincontent.appendChild(verify);
+                infowincontent.appendChild(verifyInput);
+                infowincontent.appendChild(submit);
+            };
+            infowincontent.appendChild(buttontext);
+            infowincontent.appendChild(document.createElement('br'));
+
+            if (type == "Deciduous") {
+                var icon = "deciduous.png"
+            } else {
+                var icon = "evergreen.png"
+            }
+
+            var marker = new google.maps.Marker({
+              map: map,
+              position: point,
+              icon: icon
+            });
+            marker.id = treeID;
+
+            allmarkers.push(marker);
+            marker.addListener('click', function() {
+              existinginfowindow.setContent(infowincontent);
+              existinginfowindow.open(map, marker);
+            });
+          });
+        });
+      }
+
+      // accesses the php database stuff
+      /* modified from https://developers.google.com/maps/documentation/javascript/info-windows-to-db */
       function downloadUrl(url, callback) {
         var request = window.ActiveXObject ?
             new ActiveXObject('Microsoft.XMLHTTP') :
@@ -335,9 +632,12 @@
         request.send(null);
       }
 
+      // ...
       function doNothing () {
       }
 
+      // called at the top of initMap(). Makes the autocomplete location search box work.
+      /* modified from https://developers.google.com/maps/documentation/javascript/examples/places-searchbox */
       function initAutocomplete() {
         var oberlin = {lat: 41.293067, lng: -82.218726};
         map = new google.maps.Map(document.getElementById('map'), {
@@ -388,6 +688,7 @@
       }
 
     </script>
+    <!-- loads the google maps API with our API key. -->
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrO3nDWPpR3MJ36pNw0dTdmvWEsWKjTEk&libraries=places&callback=initMap">
     </script>

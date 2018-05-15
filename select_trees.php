@@ -1,5 +1,7 @@
 <?php
 
+//because this script outputs XML, no PHP statements can be echoed
+
 function parseToXML($htmlStr)
 {
 $xmlStr=str_replace('<','&lt;',$htmlStr);
@@ -13,9 +15,9 @@ return $xmlStr;
 require("creds.php");
 
 //get the variables from the search parameters
-$type = $_GET['type'];
-$height = $_GET['height'];
-$difficulty = $_GET['difficulty'];
+$type = $_GET['type']; //Any, Deciduous, Evergreen
+$height = $_GET['height']; //Any, Short, Medium, Tall
+$difficulty = $_GET['difficulty']; //Any, Easy, Intermediate, Difficult
 
 // Opens a connection to a MySQL server.
 
@@ -37,8 +39,11 @@ if (!$db_selected) {
   exit;
 }
 
+//makes query variable
 $query = "";
 
+//Cumbersome, but basically this just provides a way for the filtering to work.
+//Each $query= is a specific filter condition.
 if($type == "Deciduous"){
   if($height == "Short"){
     if($difficulty == "Easy"){
